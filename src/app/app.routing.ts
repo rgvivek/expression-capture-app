@@ -1,15 +1,15 @@
 import { Routes, RouterModule } from '@angular/router';
 
-import { EvaluationWizardComponent }  from './evaluation-wizard/evaluation-wizard.component';
+import { MainComponent }  from './main/main.component';
 
 const appRoutes: Routes = [
   	{
   		path: '',
-  		redirectTo: "/wizard",
+  		redirectTo: "/main",
   		pathMatch:"full"
     },{
-      path: 'wizard',
-      component: EvaluationWizardComponent
+      path: 'main',
+      component: MainComponent
     }
 ];
 
