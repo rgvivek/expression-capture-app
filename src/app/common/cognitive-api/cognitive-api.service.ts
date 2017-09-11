@@ -62,7 +62,7 @@ export class CognitiveApiService {
   				this._addExpressionScoreFromFragmentEvent(windowMeanScores, fragment.events||[]);
   			}
   		}
-  		return windowMeanScores;
+  		return this._getExpressionAsPercentage(windowMeanScores);
   	}
 
   	private _addExpressionScoreFromFragmentEvent(windowMeanScores:WindowMeanScores, events:Array<any>){
@@ -72,8 +72,22 @@ export class CognitiveApiService {
   					this._addWindowMeanScores(windowMeanScores, score.windowMeanScores);
   				}
   			}
-		}
+		  }
   	}
+
+    private _getExpressionAsPercentage(score:WindowMeanScores){
+      let sumOfExpressions = score.anger + score.contempt + score.disgust + score.fear 
+                    + score.happiness + score.neutral + score.sadness + score.surprise;
+      score.anger = Math.round((score.anger/sumOfExpressions)*100);
+      score.contempt = Math.round((score.contempt/sumOfExpressions)*100);
+      score.disgust = Math.round((score.disgust/sumOfExpressions)*100);
+      score.fear = Math.round((score.fear/sumOfExpressions)*100);
+      score.happiness = Math.round((score.happiness/sumOfExpressions)*100);
+      score.neutral = Math.round((score.neutral/sumOfExpressions)*100);
+      score.sadness = Math.round((score.sadness/sumOfExpressions)*100);
+      score.surprise = Math.round((score.surprise/sumOfExpressions)*100);
+      return score;
+    }
 
   	private _addWindowMeanScores(baseScore, newScore){
   		baseScore.anger = baseScore.anger + newScore.anger;
